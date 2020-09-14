@@ -1,13 +1,12 @@
 package com.example.batmanmoviesmvvm.data
 
-import android.util.Log
 import com.example.batmanmoviesmvvm.data.api.ApiService
 import com.example.batmanmoviesmvvm.data.db.AppDao
+import com.example.batmanmoviesmvvm.data.model.Detail
 import com.example.batmanmoviesmvvm.data.model.Movie
 import com.example.batmanmoviesmvvm.utils.Constants.Companion.API_KEY
 import com.example.batmanmoviesmvvm.utils.Constants.Companion.SEARCH_KEY
 import com.example.batmanmoviesmvvm.utils.Network
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -43,5 +42,27 @@ class DataRepository @Inject constructor(
     }
 
     private fun getMovieListFromDb() = appDao.getAllMovies()
+
+    fun getMovieDetail(movieId:String) :Single<Detail>{
+        val hasConnection = network.isInternetAvailable()
+        var observableFromApi: Single<Detail>? = null
+        if (hasConnection) {
+            observableFromApi = getDetailFromApi(movieId)
+        }
+        val observableFromDb = getDetailFromDb(movieId)
+
+        return if (hasConnection)
+            Single.concatArray(observableFromApi, observableFromDb).firstOrError()
+        else
+            observableFromDb
+    }
+
+    private fun getDetailFromApi(movieId:String): Single<Detail> {
+        return apiService.getMovieDetail(movieId, API_KEY).doOnSuccess {
+            appDao.insertDetail(it)
+        }
+    }
+
+    private fun getDetailFromDb(movieId:String) = appDao.getDetail(movieId)
 
 }

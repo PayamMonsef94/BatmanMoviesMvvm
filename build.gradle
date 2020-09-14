@@ -41,6 +41,7 @@ ext {
     retrofitVersion = '2.7.2'
     retrofitAdapterVersion = '2.5.0'
     daggerVersion = '2.16'
+    picassoVersion = '2.71828'
 }
 
 task clean(type: Delete) {

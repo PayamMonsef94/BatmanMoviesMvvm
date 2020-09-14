@@ -1,5 +1,6 @@
-package com.example.batmanmoviesmvvm.data.model
+package com.example.batmanmoviesmvvm.data
 
+import com.example.batmanmoviesmvvm.data.model.Movie
 import com.google.gson.annotations.SerializedName
 
 data class MovieListResponse(

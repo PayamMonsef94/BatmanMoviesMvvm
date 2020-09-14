@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.batmanmoviesmvvm.data.model.Detail
 import com.example.batmanmoviesmvvm.data.model.Movie
 import io.reactivex.Single
 
@@ -14,9 +15,12 @@ interface AppDao {
     fun getAllMovies(): Single<List<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movie: Movie)
+    fun insertAllMovies(movies: List<Movie>)
+
+    @Query("SELECT * FROM details where imdbID = :movieId")
+    fun getDetail(movieId: String): Single<Detail>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllMovies(movies: List<Movie>)
+    fun insertDetail(detail: Detail)
 
 }

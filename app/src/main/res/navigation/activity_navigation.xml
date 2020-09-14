@@ -24,5 +24,17 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
 
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.batmanmoviesmvvm.ui.detail.DetailFragment"
+        tools:layout="@layout/fragment_detail"
+        android:label="DetailFragment" >
+        <argument
+            android:name="movieId"
+            app:argType="string" />
     </fragment>
 </navigation>
