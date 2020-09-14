@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET
+    @GET(".")
     fun getMovieList(
         @Query("s") movieName: String,
         @Query("apikey") apiKey: String

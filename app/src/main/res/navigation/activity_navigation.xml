@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.main"
+        android:name="com.example.batmanmoviesmvvm.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
 

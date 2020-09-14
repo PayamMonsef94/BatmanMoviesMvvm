@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.0"
+    ext.kotlin_version = "1.4.10"
     ext.navigationVersion = '2.3.0'
 
     repositories {
@@ -30,9 +30,11 @@ ext {
     coreKtxVersion = '1.3.1'
     constraintlayoutVersion = '2.0.1'
     fragmentKtxVersion = '1.2.5'
+    swiperefreshlayoutVersion = '1.1.0'
     materialVersion = '1.3.0-alpha02'
     archLifecycleVersion = '2.2.0'
     roomVersion = '2.2.5'
+    roomRxVersion = '1.1.1'
     rxAndroidVersion = '2.1.1'
     rxJavaVersion = '2.2.10'
     gsonVersion = '2.8.5'
