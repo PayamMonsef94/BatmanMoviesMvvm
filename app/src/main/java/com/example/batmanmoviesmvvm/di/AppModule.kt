@@ -8,6 +8,7 @@ import com.example.batmanmoviesmvvm.data.db.AppDao
 import com.example.batmanmoviesmvvm.utils.Constants.Companion.BASE_URL
 import com.example.batmanmoviesmvvm.utils.Constants.Companion.DB_NAME
 import com.example.batmanmoviesmvvm.utils.Constants.Companion.REQUEST_TIMEOUT_DURATION
+import com.example.batmanmoviesmvvm.utils.Network
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -86,6 +87,11 @@ class AppModule {
     @Provides
     fun provideAppDao(db: AppDatabase): AppDao {
         return db.appDao()
+    }
+
+    @Provides
+    fun provideNetwork(app: Application): Network {
+        return Network(app)
     }
 
 }

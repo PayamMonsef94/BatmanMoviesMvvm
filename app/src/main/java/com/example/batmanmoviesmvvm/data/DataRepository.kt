@@ -6,6 +6,7 @@ import com.example.batmanmoviesmvvm.data.db.AppDao
 import com.example.batmanmoviesmvvm.data.model.Movie
 import com.example.batmanmoviesmvvm.utils.Constants.Companion.API_KEY
 import com.example.batmanmoviesmvvm.utils.Constants.Companion.SEARCH_KEY
+import com.example.batmanmoviesmvvm.utils.Network
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -16,23 +17,25 @@ class DataRepository @Inject constructor(
     private val appDao: AppDao,
     private val apiService: ApiService
 ) {
+    @Inject
+    lateinit var network: Network
 
     fun getMovieList(): Single<List<Movie>> {
-        //val hasConnection = utils.isConnectedToInternet()
+        val hasConnection = network.isInternetAvailable()
         var observableFromApi: Single<List<Movie>>? = null
-        //if (hasConnection){
+        if (hasConnection) {
             observableFromApi = getMovieListFromApi()
-        //}
+        }
         val observableFromDb = getMovieListFromDb()
 
-        return Single.concatArray(observableFromApi, observableFromDb).firstOrError()
-
-       /* return if (hasConnection) Observable.concatArrayEager(observableFromApi, observableFromDb)
-        else observableFromDb*/
+        return if (hasConnection)
+            Single.concatArray(observableFromApi, observableFromDb).firstOrError()
+        else
+            observableFromDb
     }
 
     private fun getMovieListFromApi(): Single<List<Movie>> {
-        return apiService.getMovieList(SEARCH_KEY,API_KEY).map {
+        return apiService.getMovieList(SEARCH_KEY, API_KEY).map {
             it.movies
         }.doOnSuccess {
             Log.i("ttt", "getMovieListFromApi size: ${it.size}")

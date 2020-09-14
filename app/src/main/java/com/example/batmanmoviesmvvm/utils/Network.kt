@@ -5,9 +5,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
-object Network {
+class Network(private val context: Context) {
 
-    /*private fun isInternetAvailable(context: Context): Boolean {
+     fun isInternetAvailable(): Boolean {
         var result = false
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -36,5 +36,5 @@ object Network {
         }
 
         return result
-    }*/
+    }
 }
