@@ -20,6 +20,9 @@ class MainViewModel @Inject constructor(private val repository: DataRepository) 
     private val _openDetailEvent = MutableLiveData<Event<String>>()
     val openDetailEvent: LiveData<Event<String>> = _openDetailEvent
 
+    private val _emptyList = MutableLiveData<Boolean>()
+    val emptyList: LiveData<Boolean> = _emptyList
+
     init {
         getMovieList()
     }
@@ -36,7 +39,7 @@ class MainViewModel @Inject constructor(private val repository: DataRepository) 
                         maxTry -= 1
                         getMovieList()
                     } else {
-                        toastMessage.value = "خطا در برقراری ارتباط با اینترنت!"
+                        _emptyList.value = true
                     }
                 })
         )

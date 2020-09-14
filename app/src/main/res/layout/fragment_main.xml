@@ -20,21 +20,6 @@
         app:refreshing="@{viewmodel.dataLoading}"
         >
 
-       <!-- <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
--->
-            <!--<com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/head"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                app:srcCompat="@drawable/main_head_bg_round">
-
-                <include layout="@layout/motion_coordinatorlayout_header" />
-
-            </com.google.android.material.appbar.AppBarLayout>-->
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_recycler"
                 android:layout_gravity="top"
@@ -44,9 +29,6 @@
                 app:items="@{viewmodel.movieList}"
                 />
 
-       <!-- </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
--->
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>

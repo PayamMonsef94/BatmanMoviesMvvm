@@ -38,22 +38,10 @@ class DataRepository @Inject constructor(
         return apiService.getMovieList(SEARCH_KEY, API_KEY).map {
             it.movies
         }.doOnSuccess {
-            Log.i("ttt", "getMovieListFromApi size: ${it.size}")
-            for (item in it) {
-                Log.i("ttt", "getMovieListFromApi: ${item.Title}")
-                //cryptocurrenciesDao.insertCryptocurrency(item)
-            }
+            appDao.insertAllMovies(it)
         }
     }
 
-    private fun getMovieListFromDb(): Single<List<Movie>> {
-        return appDao.getAllMovies()
-            .doOnSuccess {
-                for (item in it) {
-                    Log.i("ttt", "getMovieListFromDb: ${item.Title}")
-                    //cryptocurrenciesDao.insertCryptocurrency(item)
-                }
-            }
-    }
+    private fun getMovieListFromDb() = appDao.getAllMovies()
 
 }

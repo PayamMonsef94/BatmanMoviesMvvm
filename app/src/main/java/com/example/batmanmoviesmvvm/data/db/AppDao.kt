@@ -14,6 +14,9 @@ interface AppDao {
     fun getAllMovies(): Single<List<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(movie: Movie)
+    fun insertMovie(movie: Movie)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllMovies(movies: List<Movie>)
 
 }
