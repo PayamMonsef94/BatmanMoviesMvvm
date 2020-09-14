@@ -33,7 +33,12 @@ class MainViewModel @Inject constructor(private val repository: DataRepository) 
                 .doAfterTerminate { _dataLoading.value = false }
                 .subscribe({ t: List<Movie> ->
                     maxTry = 2
-                    movieList.value = t
+                    if (t.isEmpty())
+                        _emptyList.value = true
+                    else {
+                        _emptyList.value = false
+                        movieList.value = t
+                    }
                 }, { t: Throwable? ->
                     if (maxTry > 0) {
                         maxTry -= 1

@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewmodel"
             type="com.example.batmanmoviesmvvm.ui.main.MainViewModel" />
@@ -17,17 +19,49 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         app:onRefreshListener="@{viewmodel::refresh}"
-        app:refreshing="@{viewmodel.dataLoading}"
-        >
+        app:refreshing="@{viewmodel.dataLoading}">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_recycler"
-                android:layout_gravity="top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_gravity="top"
+                android:visibility="@{viewmodel.emptyList ? View.GONE : View.VISIBLE}"
                 app:items="@{viewmodel.movieList}"
-                />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:visibility="@{viewmodel.emptyList ? View.VISIBLE : View.GONE}"
+                >
+                <TextView
+                    android:padding="16dp"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No history found on your device"
+                    />
+                <TextView
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Please check your internet connection first and try again later ..."
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

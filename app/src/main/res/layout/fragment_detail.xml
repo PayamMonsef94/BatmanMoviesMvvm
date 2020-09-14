@@ -5,75 +5,106 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.batmanmoviesmvvm.ui.detail.DetailViewModel" />
 
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/main_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:onRefreshListener="@{viewModel::refresh}"
+        app:refreshing="@{viewModel.dataLoading}">
 
-        <ImageView
-            android:id="@+id/detail_iv_poster"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:bindPicture="@{viewModel.detail.poster}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_iv_poster">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.emptyDetail ? View.GONE : View.VISIBLE}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/detail_iv_poster"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:bindPicture="@{viewModel.detail.poster}" />
+
+                    <TextView
+                        android:id="@+id/detail_tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.title}"
+                        tools:text="title" />
+
+                    <TextView
+                        android:id="@+id/detail_tv_genre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.genre}"
+                        tools:text="genre" />
+
+                    <TextView
+                        android:id="@+id/detail_tv_actors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.actors}"
+                        tools:text="actors" />
+
+                    <TextView
+                        android:id="@+id/detail_tv_plot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.plot}"
+                        tools:text="plot" />
+
+
+                </LinearLayout>
+            </ScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:visibility="@{viewModel.emptyDetail ? View.VISIBLE : View.GONE}">
 
                 <TextView
-                    android:id="@+id/detail_tv_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="@{viewModel.detail.title}"
-                    tools:text="title" />
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="No history found on your device"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/detail_tv_genre"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.detail.genre}"
-                    android:padding="6dp"
-                    tools:text="genre" />
-
-                <TextView
-                    android:id="@+id/detail_tv_actors"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.detail.actors}"
-                    android:padding="6dp"
-                    tools:text="actors" />
-
-                <TextView
-                    android:id="@+id/detail_tv_plot"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.detail.plot}"
-                    android:padding="6dp"
-                    tools:text="plot" />
-
+                    android:gravity="center"
+                    android:text="Please check your internet connection first and try again later ..."
+                    android:textSize="16sp" />
 
             </LinearLayout>
-        </ScrollView>
+        </RelativeLayout>
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
