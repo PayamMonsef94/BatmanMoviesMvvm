@@ -1,6 +1,6 @@
 package com.example.batmanmoviesmvvm.ui.main
 
-import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.batmanmoviesmvvm.base.BaseViewModel
@@ -32,7 +32,6 @@ class MainViewModel @Inject constructor(private val repository: DataRepository) 
             repository.getMovieList().with()
                 .doAfterTerminate { _dataLoading.value = false }
                 .subscribe({ t: List<Movie> ->
-                    maxTry = 2
                     if (t.isEmpty())
                         _emptyList.value = true
                     else {
@@ -40,12 +39,7 @@ class MainViewModel @Inject constructor(private val repository: DataRepository) 
                         movieList.value = t
                     }
                 }, { t: Throwable? ->
-                    if (maxTry > 0) {
-                        maxTry -= 1
-                        getMovieList()
-                    } else {
-                        _emptyList.value = true
-                    }
+                    _emptyList.value = true
                 })
         )
     }

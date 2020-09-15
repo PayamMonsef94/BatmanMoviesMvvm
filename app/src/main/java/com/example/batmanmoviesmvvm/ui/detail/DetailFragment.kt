@@ -1,20 +1,15 @@
 package com.example.batmanmoviesmvvm.ui.detail
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.batmanmoviesmvvm.R
 import com.example.batmanmoviesmvvm.base.BaseFragment
 import com.example.batmanmoviesmvvm.databinding.FragmentDetailBinding
-import com.example.batmanmoviesmvvm.databinding.FragmentMainBinding
 import com.example.batmanmoviesmvvm.di.Injectable
-import com.example.batmanmoviesmvvm.utils.EventObserver
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>(), Injectable {
@@ -30,12 +25,22 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         val safeArgs: DetailFragmentArgs by navArgs()
         viewModel.getMovieDetail(safeArgs.movieId)
-        binding.viewModel = viewModel
 
-        /*viewModel.openDetailEvent.observe(viewLifecycleOwner, EventObserver {
-            Log.i("ttt", "onViewCreated: $it")
+        binding.viewModel = viewModel
+        binding.detailIvBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.executePendingBindings()
+        viewModel.detail.observe(viewLifecycleOwner, {
+            try {
+                binding.detailProgressMetascore.setProgress(it.Metascore.toFloat())
+            } catch (e: NumberFormatException){
+                binding.detailProgressMetascore.setProgress(0F)
+            }
+            binding.detailProgressImdb.setProgress(it.imdbRating.toFloat() * 10)
         })
-*/
+
     }
 
     override fun getLayoutResId(): Int {

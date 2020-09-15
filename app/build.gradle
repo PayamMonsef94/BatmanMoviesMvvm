@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.batmanmoviesmvvm"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -62,6 +62,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.hi-dhl:progressview:$progressviewVersion"
 
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"

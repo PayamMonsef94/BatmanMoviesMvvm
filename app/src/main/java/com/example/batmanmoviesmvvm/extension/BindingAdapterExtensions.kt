@@ -30,6 +30,6 @@ fun setItems(listView: RecyclerView, items: List<Movie>?) {
 @BindingAdapter("app:bindPicture")
 fun bindPicture(imageView: ImageView, url: String?) {
     url?.let {
-        Picasso.get().load(url).placeholder(R.drawable.ic_launcher_foreground).into(imageView)
+        Picasso.get().load(url).into(imageView)
     }
 }

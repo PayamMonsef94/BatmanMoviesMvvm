@@ -22,42 +22,110 @@
         app:refreshing="@{viewmodel.dataLoading}">
 
         <RelativeLayout
+            android:background="@color/grey_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr"
+                android:padding="8dp"
+                android:id="@+id/main_header"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_movie_filter_24"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/app_name"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr"
+                android:padding="8dp"
+                android:layout_below="@id/main_header"
+                android:background="@drawable/shape_rect_main_search"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/main_search"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_search_24"
+                    app:tint="@color/grey_text" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/grey_text"
+                    android:text="Batman"
+                    android:textSize="20sp"
+                   />
+            </LinearLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/main_search"
                 android:id="@+id/main_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:clipToPadding="false"
                 android:layout_gravity="top"
                 android:visibility="@{viewmodel.emptyList ? View.GONE : View.VISIBLE}"
                 app:items="@{viewmodel.movieList}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_marginTop="72dp"
                 android:gravity="center"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:visibility="@{viewmodel.emptyList ? View.VISIBLE : View.GONE}"
-                >
+                android:orientation="vertical"
+                android:paddingStart="64dp"
+                android:paddingEnd="64dp"
+                android:visibility="@{viewmodel.emptyList ? View.VISIBLE : View.GONE}">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/nothing_found"
+                    />
                 <TextView
+                    android:textColor="@color/grey_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:padding="16dp"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="No history found on your device"
-                    />
+                    android:text="@string/empty_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
                 <TextView
-                    android:textSize="16sp"
+                    android:textColor="@color/grey_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Please check your internet connection first and try again later ..."
-                    />
+                    android:lineSpacingExtra="4dp"
+                    android:text="@string/empty_description"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
             </LinearLayout>
         </RelativeLayout>

@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">BatmanMoviesMvvm</string>
+    <string name="app_name">iFilm</string>
+
+    <string name="empty_title">No history found on your device</string>
+    <string name="empty_description">Please check your internet connection first and try again later …</string>
+
+
+    <string name="meta_score">%s/100</string>
+    <string name="imdb_score">%s/10</string>
+
 </resources>

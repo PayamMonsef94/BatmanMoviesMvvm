@@ -6,4 +6,13 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="grey_root">#f3f3f3</color>
+    <color name="grey_text">#999999</color>
+    <color name="grey_background">#E5E5E5</color>
+    <color name="genre">#0277BD</color>
+    <color name="color_progress_bg">#FFDBDBDB</color>
+    <color name="color_progress_2">#f99655</color>
+    <color name="color_progress_1">#6ebb83</color>
+
 </resources>

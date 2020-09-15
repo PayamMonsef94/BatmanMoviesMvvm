@@ -9,30 +9,33 @@
         android:id="@+id/splashFragment"
         android:name="com.example.batmanmoviesmvvm.ui.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/activity_navigation"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.batmanmoviesmvvm.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.batmanmoviesmvvm.ui.detail.DetailFragment"
-        tools:layout="@layout/fragment_detail"
-        android:label="DetailFragment" >
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail">
         <argument
             android:name="movieId"
             app:argType="string" />

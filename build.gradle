@@ -42,6 +42,7 @@ ext {
     retrofitAdapterVersion = '2.5.0'
     daggerVersion = '2.16'
     picassoVersion = '2.71828'
+    progressviewVersion = '1.0.0'
 }
 
 task clean(type: Delete) {

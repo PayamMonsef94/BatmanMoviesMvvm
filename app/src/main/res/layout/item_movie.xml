@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="favorite"
+            type="boolean" />
+
+        <variable
             name="movie"
             type="com.example.batmanmoviesmvvm.data.model.Movie" />
 
@@ -16,29 +20,80 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        app:cardCornerRadius="16dp"
-        android:layout_margin="8dp"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> viewModel.openDetail(movie.imdbID)}">
+        android:layout_margin="4dp"
+        android:onClick="@{() -> viewModel.openDetail(movie.imdbID)}"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp">
 
-        <LinearLayout
-            android:padding="16dp"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/title_text"
+            <ImageView
+                android:id="@+id/itemMovie_iv_poster"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:adjustViewBounds="true"
+                app:bindPicture="@{movie.poster}"
+                tools:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/itemMovie_iv_favorite"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_favorite_24"
+                android:transitionName="@{movie.imdbID}"
+                app:tint="@color/white" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rect_border_white"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:padding="6dp"
+                    android:id="@+id/itemMovie_tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:text="@{movie.title}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="Batman movie title" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/itemMovie_tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_margin="8dp"
+                android:background="@drawable/shape_rect_border_white"
+                android:paddingStart="12dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp"
+                android:text="@{movie.year}"
                 android:textColor="@color/white"
-                android:text="@{movie.title}"
-                tools:text="Batman movie title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                />
-        </LinearLayout>
+                android:textSize="12sp"
+                tools:text="2015" />
+
+        </FrameLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

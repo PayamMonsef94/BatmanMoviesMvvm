@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import com.example.batmanmoviesmvvm.R
 import com.example.batmanmoviesmvvm.base.BaseFragment
@@ -37,7 +38,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), Injectable {
             val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
             findNavController().navigate(action)
         })
-
     }
 
     override fun getLayoutResId(): Int {

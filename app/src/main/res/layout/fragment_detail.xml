@@ -13,33 +13,71 @@
 
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/main_refresh"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        app:onRefreshListener="@{viewModel::refresh}"
-        app:refreshing="@{viewModel.dataLoading}">
+        android:background="@color/grey_root">
 
-        <RelativeLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.emptyDetail ? View.GONE : View.VISIBLE}">
 
-            <ScrollView
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/detail_motion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="@{viewModel.emptyDetail ? View.GONE : View.VISIBLE}">
+                android:layout_height="match_parent"
+                app:layoutDescription="@xml/motion_detail"
+                app:showPaths="false">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/detail_iv_poster"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:adjustViewBounds="true"
+                    app:bindPicture="@{viewModel.detail.poster}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@mipmap/ic_launcher" />
 
-                    <ImageView
-                        android:id="@+id/detail_iv_poster"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bindPicture="@{viewModel.detail.poster}" />
+                <ImageView
+                    android:id="@+id/detail_iv_back"
+                    android:layout_width="48dp"
+                    android:layout_margin="16dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_back_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/grey_background" />
+
+                <View
+                    android:id="@+id/detail_space"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/detail_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="172dp"
+                    android:background="@drawable/shape_rect_detail"
+                    android:orientation="vertical"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="64dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/grey_background" />
 
                     <TextView
                         android:id="@+id/detail_tv_title"
@@ -47,23 +85,161 @@
                         android:layout_height="wrap_content"
                         android:padding="6dp"
                         android:text="@{viewModel.detail.title}"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
                         tools:text="title" />
 
                     <TextView
                         android:id="@+id/detail_tv_genre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="6dp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
                         android:text="@{viewModel.detail.genre}"
-                        tools:text="genre" />
+                        android:textColor="@color/grey_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="Action, Adventure, Sci-Fi" />
 
-                    <TextView
-                        android:id="@+id/detail_tv_actors"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layoutDirection="ltr"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/shape_rect_border_genre"
+                            android:padding="6dp"
+                            android:text="@{viewModel.detail.year}"
+                            android:textColor="@color/genre"
+                            tools:text="2015" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/shape_rect_border_genre"
+                            android:padding="6dp"
+                            android:text="@{viewModel.detail.runtime}"
+                            android:textColor="@color/genre"
+                            tools:text="122 min" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/shape_rect_border_genre"
+                            android:padding="6dp"
+                            android:text="@{viewModel.detail.language}"
+                            android:textColor="@color/genre"
+                            tools:text="English" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/shape_rect_border_genre"
+                            android:padding="6dp"
+                            android:text="@{viewModel.detail.country}"
+                            android:textColor="@color/genre"
+                            tools:text="US" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:padding="6dp"
+                            android:text="Metascore:"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+
+                            android:padding="6dp"
+                            android:text="@{String.format(@string/meta_score, viewModel.detail.metascore)}"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+
+                    <com.hi.dhl.jprogressview.JProgressView
+                        android:id="@+id/detail_progress_metascore"
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp"
+                        android:translationZ="100dp"
+                        app:progress_animate_duration="3000"
+                        app:progress_color="@color/color_progress_2"
+                        app:progress_color_background="@color/color_progress_bg"
+                        app:progress_paint_bg_width="10dp"
+                        app:progress_paint_value_width="10dp"
+                        app:progress_text_color="@android:color/black"
+                        app:progress_text_size="12sp"
+                        app:progress_type="@integer/porgress_tpye_round_rect" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:padding="6dp"
+                            android:text="IMDB:"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:padding="6dp"
+                            android:text="@{String.format(@string/imdb_score, viewModel.detail.imdbRating)}"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+
+                    <com.hi.dhl.jprogressview.JProgressView
+                        android:id="@+id/detail_progress_imdb"
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp"
+                        android:translationZ="100dp"
+                        app:progress_animate_duration="3000"
+                        app:progress_color="@color/color_progress_1"
+                        app:progress_color_background="@color/color_progress_bg"
+                        app:progress_paint_bg_width="10dp"
+                        app:progress_paint_value_width="10dp"
+                        app:progress_text_color="@android:color/black"
+                        app:progress_text_size="12sp"
+                        app:progress_type="@integer/porgress_tpye_round_rect" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
                         android:padding="6dp"
-                        android:text="@{viewModel.detail.actors}"
-                        tools:text="actors" />
+                        android:text="Description:"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/detail_tv_plot"
@@ -74,37 +250,117 @@
                         tools:text="plot" />
 
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:padding="6dp"
+                        android:text="Director:"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.director}"
+                        tools:text="director" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:padding="6dp"
+                        android:text="Writter:"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.writer}"
+                        tools:text="actors" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:padding="6dp"
+                        android:text="Actors:"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.actors}"
+                        tools:text="actors" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:padding="6dp"
+                        android:text="Awards:"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@{viewModel.detail.awards}"
+                        tools:text="actors" />
+
                 </LinearLayout>
-            </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/detail_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:visibility="@{viewModel.emptyDetail ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/nothing_found" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:visibility="@{viewModel.emptyDetail ? View.VISIBLE : View.GONE}">
+                android:padding="16dp"
+                android:text="@string/empty_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/grey_text" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="No history found on your device"
-                    android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/empty_description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_text" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Please check your internet connection first and try again later ..."
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-        </RelativeLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+        </LinearLayout>
+    </FrameLayout>
 
 </layout>

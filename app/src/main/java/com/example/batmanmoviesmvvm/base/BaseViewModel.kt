@@ -7,8 +7,6 @@ import javax.inject.Inject
 open class BaseViewModel @Inject constructor() : ViewModel() {
     var disposable: CompositeDisposable = CompositeDisposable()
 
-    var maxTry = 2
-
     override fun onCleared() {
         super.onCleared()
         if (!disposable.isDisposed) {

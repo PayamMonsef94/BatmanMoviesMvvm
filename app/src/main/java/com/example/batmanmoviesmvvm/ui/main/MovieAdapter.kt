@@ -2,9 +2,11 @@ package com.example.batmanmoviesmvvm.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.batmanmoviesmvvm.R
 import com.example.batmanmoviesmvvm.data.model.Movie
 import com.example.batmanmoviesmvvm.databinding.ItemMovieBinding
 
@@ -13,7 +15,6 @@ class MovieAdapter(private val viewModel: MainViewModel) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-
         holder.bind(viewModel, item)
     }
 
@@ -28,6 +29,26 @@ class MovieAdapter(private val viewModel: MainViewModel) :
 
             binding.viewModel = viewModel
             binding.movie = item
+            binding.favorite = false
+            binding.itemMovieIvFavorite.setOnClickListener {
+                if (binding.favorite) {
+                    binding.favorite = false
+                    binding.itemMovieIvFavorite.setColorFilter(
+                        ContextCompat.getColor(
+                            it.context,
+                            R.color.grey_background
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                } else {
+                    binding.favorite = true
+                    binding.itemMovieIvFavorite.setColorFilter(
+                        ContextCompat.getColor(
+                            it.context,
+                            R.color.red
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                }
+            }
             binding.executePendingBindings()
         }
 
