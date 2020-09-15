@@ -8,20 +8,8 @@ import com.example.batmanmoviesmvvm.data.model.Movie
 import com.example.batmanmoviesmvvm.ui.main.MovieAdapter
 import com.squareup.picasso.Picasso
 
-/*@BindingAdapter("refreshing")
-fun SwipeRefreshLayout.refreshing(visible: Boolean) {
-    isRefreshing = visible
-}*/
-
-/*@BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, items: List<Task>?) {
-    items?.let {
-        (listView.adapter as TasksAdapter).submitList(items)
-    }
-}*/
-
 @BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, items: List<Movie>?) {
+fun items(listView: RecyclerView, items: List<Movie>?) {
     items?.let {
         (listView.adapter as MovieAdapter).submitList(items)
     }
@@ -30,6 +18,6 @@ fun setItems(listView: RecyclerView, items: List<Movie>?) {
 @BindingAdapter("app:bindPicture")
 fun bindPicture(imageView: ImageView, url: String?) {
     url?.let {
-        Picasso.get().load(url).into(imageView)
+        Picasso.get().load(url).placeholder(R.drawable.holder).into(imageView)
     }
 }
